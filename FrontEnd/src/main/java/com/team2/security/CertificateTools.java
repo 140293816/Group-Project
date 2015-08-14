@@ -20,16 +20,19 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
+import java.util.logging.Logger;
 
+public class CertificateTools {
 
-public class CertificateTools {	
+	private static Logger log = Logger.getAnonymousLogger();
+	
 	/**
 	 * Returns an object containing an example private/public key pair and signed data. 
 	 * Should only be used for testing
 	 * @param dataToSign The data to sign, usually the username
 	 * @return The TestData object with the signed data and the keypair
 	 */
-	public static TestData getTestData(String dataToSign) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException
+	public static Sig getTestData(String dataToSign) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException
 	{
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
@@ -45,8 +48,7 @@ public class CertificateTools {
 		
 		PublicKey pub = pair.getPublic();
 		
-		TestData out = new TestData(encodeDSA(pub), dataToSign, encodeBase64(sig), encodeDSA(priv));
-		
+		Sig out = new Sig(encodeDSA(pub), dataToSign, encodeBase64(sig), encodeDSA(priv));
 		
 		return out;
 	}

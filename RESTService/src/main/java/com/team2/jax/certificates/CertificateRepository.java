@@ -39,8 +39,36 @@ public interface CertificateRepository {
 	 * 
 	 * @param certificate
 	 *            The Certificate object to be added to the database
-	 * @return The Certificate object's database representation (including the
-	 *         id)
 	 */
-	public Certificate create(Certificate certificate);
+	public void create(Certificate certificate);
+	
+	/**
+	 * <p>
+	 * Verifies whether the latest Certificate associated with the provided email 
+	 * address has the given verification code	  
+	 * </p>
+	 * <p>	
+	 * </p>
+	 * 
+	 * @param email
+	 *            The email address associated with the certificate
+	 * @param code 
+	 *            The verification code given from the user
+	 * @return true if verification succeeds, else false
+	 */
+	public boolean verify(String email, String code);
+	
+	/**
+	 * <p>
+	 * Deletes the requested certificate in DynamoDB.   
+	 * </p>
+	 * <p>	
+	 * </p>
+	 * 
+	 * @param c
+	 *           The Certificate object needed to be deleted	 
+	 */
+	public void delete(Certificate c);
+	
+	
 }
